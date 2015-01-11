@@ -10,7 +10,7 @@ I appreciate all your input, feedback, and especially contributions!
 
 This is my personal project, I'm not affiliated with RevMob in any way.
 
-Building
+Instructions
 =======
 The binding was built using Xamarin Studio v5.7 as a Unified API iOS Binding Project using RevMob iOS SDK version 8.1.0
 
