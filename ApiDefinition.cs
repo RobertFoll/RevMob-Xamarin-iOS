@@ -6,7 +6,7 @@ using CoreGraphics;
 
 namespace RevMob.iOS
 {
-	//Built & tested with RevMob iOS SDK Version 8.1.0
+	//Built for and tested with RevMob iOS SDK Version 8.1.0
 
 	[BaseType (typeof (NSObject))]
 	public interface RevMobAds {
