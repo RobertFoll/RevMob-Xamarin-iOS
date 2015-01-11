@@ -17,10 +17,10 @@ The binding was built using Xamarin Studio v5.7 as a Unified API iOS Binding Pro
 2. Extract the SDK files.
 3. Copy and rename the file "revmob-ios-sdk/RevMobAds.Framework/Versions/A/RevMobAds" to "revmob-ios-sdk/RevMobAds.Framework/Versions/A/libRevMobAds.a"
 4. Add "libRevMobAds.a" to the Xamarin binding project and set its build action to ObjCBindingNativeLibrary
-5. Open the automatically generated created code behind file "libRevMobAds.linkwith.cs" and replace with the content below:
-	using ObjCRuntime;
-	[assembly: LinkWith ("libRevMobAds.a", LinkTarget.Simulator | LinkTarget.ArmV7 | LinkTarget.Arm64 | LinkTarget.ArmV7s,  SmartLink = true, ForceLoad = true, Frameworks = "MediaPlayer AdSupport StoreKit SystemConfiguration")]
-6. Build and Done.
+5. Open the automatically generated created code behind file "libRevMobAds.linkwith.cs" and update the line as shown below:
+
+[assembly: LinkWith ("libRevMobAds.a", LinkTarget.Simulator | LinkTarget.ArmV7 | LinkTarget.Arm64 | LinkTarget.ArmV7s,  
+SmartLink = true, ForceLoad = true, Frameworks = "MediaPlayer AdSupport StoreKit SystemConfiguration")]
 
 Credits
 =======
