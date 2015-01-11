@@ -1,5 +1,5 @@
 
-A Xamarin wrapper around the RevMob iOS SDK ( http://sdk.revmobmobileadnetwork.com/ios.html )
+A Xamarin wrapper for the RevMob iOS SDK
 =======
 
 I will create a sample project in a future build.
