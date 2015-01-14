@@ -10,7 +10,7 @@ Instructions
 =======
 
 1. Obtain a RevMob Media ID at revmob.com.
-2. Paste the ID into the AppDelegate's FinishedLoading event in the sample project.
+2. Paste the ID into the sample project.
 
 Credits
 =======
