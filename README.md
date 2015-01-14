@@ -15,9 +15,9 @@ The binding was built using Xamarin.iOS Version: 8.6.0.51 as a Unified API iOS B
 Instructions
 =======
 
-1. Obtain a RevMob Media ID at revmob.com
-2. Paste the ID into the App Delegate Finished Loading Event
-3. Profit
+1. Obtain a RevMob Media ID at revmob.com.
+2. Paste the ID into the App Delegate FinishedLoading event in the sample project.
+3. Profit :)
 
 Credits
 =======
