@@ -16,8 +16,8 @@ Credits
 =======
 
 RevMob deserves all the credit as all I have done is create a Xamarin.iOS binding for the SDK.
-License
 
+License
 =======
 
 The MIT License (MIT)
