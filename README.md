@@ -4,7 +4,7 @@ A Xamarin wrapper for the RevMob iOS SDK
 A sample project is included.
 For the technical specifications and documentation of the SDK, see http://sdk.revmobmobileadnetwork.com/ios.html
 This is my personal project, I'm not affiliated with RevMob in any way. I appreciate all your input, feedback, and especially contributions!
-The binding was built using Xamarin.iOS Version: 8.6.0.51 as a Unified API iOS Binding Project using RevMob iOS SDK version 8.1.0
+The binding was built using Xamarin.iOS as a Unified API iOS Binding Project using RevMob iOS SDK version 8.1.0
 
 Instructions
 =======
