@@ -1,10 +1,10 @@
-# Version: 8.6.0.51 (dfb682f)
-# [first argument, ignore] # /Users/rob/Desktop/RevMob-Xamarin-iOS/Sample/mtouch.exe
-/Library/Frameworks/Xamarin.iOS.framework/Versions/8.6.0.51/bin/mtouch-64 \
+# Version: 9.4.0.0 (xcode7.2: 7322991)
+# [first argument, ignore] # /Users/rob/Documents/Source/Xamarin/RevMob-Xamarin-iOS/Sample/mtouch.exe
+/Library/Frameworks/Xamarin.iOS.framework/Versions/9.4.0.0/bin/mtouch \
 	--cache \
-	/Users/rob/Desktop/RevMob-Xamarin-iOS/Sample/obj/iPhoneSimulator/Debug/mtouch-cache \
+	/Users/rob/Documents/Source/Xamarin/RevMob-Xamarin-iOS/Sample/obj/iPhoneSimulator/Debug/mtouch-cache \
 	--sim \
-	/Users/rob/Desktop/RevMob-Xamarin-iOS/Sample/bin/iPhoneSimulator/Debug/Sample.app \
+	/Users/rob/Documents/Source/Xamarin/RevMob-Xamarin-iOS/Sample/bin/iPhoneSimulator/Debug/Sample.app \
 	--executable \
 	Sample \
 	--debug \
@@ -12,10 +12,13 @@
 	--sdkroot \
 	/Applications/Xcode.app/Contents/Developer \
 	--sdk \
-	8.1 \
+	9.2 \
 	--targetver \
-	8.0 \
+	9.2 \
 	--abi=i386 \
+	--symbollist \
+	/Users/rob/Documents/Source/Xamarin/RevMob-Xamarin-iOS/Sample/obj/iPhoneSimulator/Debug/mtouch-symbols.list \
+	--dsym=no \
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.dll \
 	-r \
@@ -25,9 +28,11 @@
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.Core.dll \
 	-r \
-	/Users/rob/Desktop/RevMob-Xamarin-iOS/bin/Debug//RevMob.dll \
+	/Users/rob/Documents/Source/Xamarin/RevMob-Xamarin-iOS/bin/Debug/RevMob.dll \
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/mscorlib.dll \
 	-r \
-	/Users/rob/Desktop/RevMob-Xamarin-iOS/bin/Debug//RevMob.dll \
-	/Users/rob/Desktop/RevMob-Xamarin-iOS/Sample/bin/iPhoneSimulator/Debug//Sample.exe \
+	/Users/rob/Documents/Source/Xamarin/RevMob-Xamarin-iOS/bin/Debug/RevMob.dll \
+	--target-framework \
+	"Xamarin.iOS,v1.0" \
+	/Users/rob/Documents/Source/Xamarin/RevMob-Xamarin-iOS/Sample/bin/iPhoneSimulator/Debug//Sample.exe \

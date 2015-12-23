@@ -6,8 +6,23 @@
 	<dict>
 		<key>output-files</key>
 		<array>
-			<string>/Users/rob/Desktop/RevMob-Xamarin-iOS/Sample/obj/iPhoneSimulator/Debug/actool/partial-info.plist</string>
+			<string>/Users/rob/Documents/Source/Xamarin/RevMob-Xamarin-iOS/Sample/obj/iPhoneSimulator/Debug/actool/partial-info.plist</string>
 		</array>
 	</dict>
+	<key>com.apple.actool.document.warnings</key>
+	<array>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./AppIcons.appiconset/[car][120x120][][][1x][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/rob/Documents/Source/Xamarin/RevMob-Xamarin-iOS/Sample/Resources/Images.xcassets</string>
+			<key>message</key>
+			<string>The app icon set "AppIcons" has an unassigned child.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+	</array>
 </dict>
 </plist>

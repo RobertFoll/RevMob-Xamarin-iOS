@@ -14,7 +14,9 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using UIKit;
 using GLKit;
+using Metal;
 using MapKit;
+using ModelIO;
 using Security;
 using SceneKit;
 using CoreVideo;
@@ -26,8 +28,8 @@ using ObjCRuntime;
 using AddressBook;
 using CoreGraphics;
 using CoreLocation;
-using NewsstandKit;
 using AVFoundation;
+using NewsstandKit;
 using CoreAnimation;
 using CoreFoundation;
 
@@ -54,6 +56,7 @@ namespace RevMob.iOS {
 		}
 
 		[CompilerGenerated]
+		[DesignatedInitializer]
 		[EditorBrowsable (EditorBrowsableState.Advanced)]
 		[Export ("initWithCoder:")]
 		public RevMobButton (NSCoder coder) : base (NSObjectFlag.Empty)
@@ -86,15 +89,15 @@ namespace RevMob.iOS {
 		public virtual void LoadAd ()
 		{
 			if (IsDirectBinding) {
-				ApiDefinition.Messaging.void_objc_msgSend (this.Handle, Selector.GetHandle ("loadAd"));
+				global::ApiDefinition.Messaging.void_objc_msgSend (this.Handle, Selector.GetHandle ("loadAd"));
 			} else {
-				ApiDefinition.Messaging.void_objc_msgSendSuper (this.SuperHandle, Selector.GetHandle ("loadAd"));
+				global::ApiDefinition.Messaging.void_objc_msgSendSuper (this.SuperHandle, Selector.GetHandle ("loadAd"));
 			}
 		}
 		
 		[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:")]
 		[CompilerGenerated]
-		public unsafe virtual void LoadWithSuccessHandler ([BlockProxy (typeof (ObjCRuntime.Trampolines.NIDActionArity1V4))]global::System.Action<RevMobButton> onAdLoadedHandler, [BlockProxy (typeof (ObjCRuntime.Trampolines.NIDActionArity2V3))]global::System.Action<RevMobButton, NSError> onAdFailedHandler, [BlockProxy (typeof (ObjCRuntime.Trampolines.NIDActionArity1V4))]global::System.Action<RevMobButton> onClickHandler)
+		public unsafe virtual void LoadWithSuccessHandler ([BlockProxy (typeof (ObjCRuntime.Trampolines.NIDRevMobButtonSuccessfullHandler))]RevMobButtonSuccessfullHandler onAdLoadedHandler, [BlockProxy (typeof (ObjCRuntime.Trampolines.NIDRevMobButtonFailureHandler))]RevMobButtonFailureHandler onAdFailedHandler, [BlockProxy (typeof (ObjCRuntime.Trampolines.NIDRevMobButtonOnclickHandler))]RevMobButtonOnclickHandler onClickHandler)
 		{
 			if (onAdLoadedHandler == null)
 				throw new ArgumentNullException ("onAdLoadedHandler");
@@ -106,22 +109,22 @@ namespace RevMob.iOS {
 			BlockLiteral block_onAdLoadedHandler;
 			block_onAdLoadedHandler = new BlockLiteral ();
 			block_ptr_onAdLoadedHandler = &block_onAdLoadedHandler;
-			block_onAdLoadedHandler.SetupBlock (Trampolines.SDActionArity1V4.Handler, onAdLoadedHandler);
+			block_onAdLoadedHandler.SetupBlock (Trampolines.SDRevMobButtonSuccessfullHandler.Handler, onAdLoadedHandler);
 			BlockLiteral *block_ptr_onAdFailedHandler;
 			BlockLiteral block_onAdFailedHandler;
 			block_onAdFailedHandler = new BlockLiteral ();
 			block_ptr_onAdFailedHandler = &block_onAdFailedHandler;
-			block_onAdFailedHandler.SetupBlock (Trampolines.SDActionArity2V3.Handler, onAdFailedHandler);
+			block_onAdFailedHandler.SetupBlock (Trampolines.SDRevMobButtonFailureHandler.Handler, onAdFailedHandler);
 			BlockLiteral *block_ptr_onClickHandler;
 			BlockLiteral block_onClickHandler;
 			block_onClickHandler = new BlockLiteral ();
 			block_ptr_onClickHandler = &block_onClickHandler;
-			block_onClickHandler.SetupBlock (Trampolines.SDActionArity1V4.Handler, onClickHandler);
+			block_onClickHandler.SetupBlock (Trampolines.SDRevMobButtonOnclickHandler.Handler, onClickHandler);
 			
 			if (IsDirectBinding) {
-				ApiDefinition.Messaging.void_objc_msgSend_IntPtr_IntPtr_IntPtr (this.Handle, Selector.GetHandle ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:"), (IntPtr) block_ptr_onAdLoadedHandler, (IntPtr) block_ptr_onAdFailedHandler, (IntPtr) block_ptr_onClickHandler);
+				global::ApiDefinition.Messaging.void_objc_msgSend_IntPtr_IntPtr_IntPtr (this.Handle, Selector.GetHandle ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:"), (IntPtr) block_ptr_onAdLoadedHandler, (IntPtr) block_ptr_onAdFailedHandler, (IntPtr) block_ptr_onClickHandler);
 			} else {
-				ApiDefinition.Messaging.void_objc_msgSendSuper_IntPtr_IntPtr_IntPtr (this.SuperHandle, Selector.GetHandle ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:"), (IntPtr) block_ptr_onAdLoadedHandler, (IntPtr) block_ptr_onAdFailedHandler, (IntPtr) block_ptr_onClickHandler);
+				global::ApiDefinition.Messaging.void_objc_msgSendSuper_IntPtr_IntPtr_IntPtr (this.SuperHandle, Selector.GetHandle ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:"), (IntPtr) block_ptr_onAdLoadedHandler, (IntPtr) block_ptr_onAdFailedHandler, (IntPtr) block_ptr_onClickHandler);
 			}
 			block_ptr_onAdLoadedHandler->CleanupBlock ();
 			block_ptr_onAdFailedHandler->CleanupBlock ();
@@ -140,13 +143,13 @@ namespace RevMob.iOS {
 		}
 		
 		[CompilerGenerated]
-		public virtual RevMobButtonStatus Status {
+		public virtual global::RevMobButtonStatus Status {
 			[Export ("status")]
 			get {
 				if (IsDirectBinding) {
-					return (RevMobButtonStatus) ApiDefinition.Messaging.int_objc_msgSend (this.Handle, Selector.GetHandle ("status"));
+					return (global::RevMobButtonStatus) global::ApiDefinition.Messaging.int_objc_msgSend (this.Handle, Selector.GetHandle ("status"));
 				} else {
-					return (RevMobButtonStatus) ApiDefinition.Messaging.int_objc_msgSendSuper (this.SuperHandle, Selector.GetHandle ("status"));
+					return (global::RevMobButtonStatus) global::ApiDefinition.Messaging.int_objc_msgSendSuper (this.SuperHandle, Selector.GetHandle ("status"));
 				}
 			}
 			
@@ -160,9 +163,9 @@ namespace RevMob.iOS {
 			get {
 				NSObject ret;
 				if (IsDirectBinding) {
-					ret = Runtime.GetNSObject (ApiDefinition.Messaging.IntPtr_objc_msgSend (this.Handle, Selector.GetHandle ("delegate")));
+					ret = Runtime.GetNSObject (global::ApiDefinition.Messaging.IntPtr_objc_msgSend (this.Handle, Selector.GetHandle ("delegate")));
 				} else {
-					ret = Runtime.GetNSObject (ApiDefinition.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, Selector.GetHandle ("delegate")));
+					ret = Runtime.GetNSObject (global::ApiDefinition.Messaging.IntPtr_objc_msgSendSuper (this.SuperHandle, Selector.GetHandle ("delegate")));
 				}
 				MarkDirty ();
 				__mt_WeakDelegate_var = ret;
@@ -172,9 +175,9 @@ namespace RevMob.iOS {
 			[Export ("setDelegate:", ArgumentSemantic.UnsafeUnretained)]
 			set {
 				if (IsDirectBinding) {
-					ApiDefinition.Messaging.void_objc_msgSend_IntPtr (this.Handle, Selector.GetHandle ("setDelegate:"), value == null ? IntPtr.Zero : value.Handle);
+					global::ApiDefinition.Messaging.void_objc_msgSend_IntPtr (this.Handle, Selector.GetHandle ("setDelegate:"), value == null ? IntPtr.Zero : value.Handle);
 				} else {
-					ApiDefinition.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, Selector.GetHandle ("setDelegate:"), value == null ? IntPtr.Zero : value.Handle);
+					global::ApiDefinition.Messaging.void_objc_msgSendSuper_IntPtr (this.SuperHandle, Selector.GetHandle ("setDelegate:"), value == null ? IntPtr.Zero : value.Handle);
 				}
 				MarkDirty ();
 				__mt_WeakDelegate_var = value;
@@ -189,5 +192,39 @@ namespace RevMob.iOS {
 				__mt_WeakDelegate_var = null;
 			}
 		}
+		public partial class RevMobButtonAppearance : global::UIKit.UIButton.UIButtonAppearance {
+			protected internal RevMobButtonAppearance (IntPtr handle) : base (handle) {}
+		}
+		
+		public static new RevMobButtonAppearance Appearance {
+			get { return new RevMobButtonAppearance (global::ApiDefinition.Messaging.IntPtr_objc_msgSend (class_ptr, ObjCRuntime.Selector.GetHandle ("appearance"))); }
+		}
+		
+		public static new RevMobButtonAppearance GetAppearance<T> () where T: RevMobButton {
+			return new RevMobButtonAppearance (global::ApiDefinition.Messaging.IntPtr_objc_msgSend (Class.GetHandle (typeof (T)), ObjCRuntime.Selector.GetHandle ("appearance")));
+		}
+		
+		public static new RevMobButtonAppearance AppearanceWhenContainedIn (params Type [] containers)
+		{
+			return new RevMobButtonAppearance (UIAppearance.GetAppearance (class_ptr, containers));
+		}
+		
+		public static new RevMobButtonAppearance GetAppearance (UITraitCollection traits) {
+			return new RevMobButtonAppearance (UIAppearance.GetAppearance (class_ptr, traits));
+		}
+		
+		public static new RevMobButtonAppearance GetAppearance (UITraitCollection traits, params Type [] containers) {
+			return new RevMobButtonAppearance (UIAppearance.GetAppearance (class_ptr, traits, containers));
+		}
+		
+		public static new RevMobButtonAppearance GetAppearance<T> (UITraitCollection traits) where T: RevMobButton {
+			return new RevMobButtonAppearance (UIAppearance.GetAppearance (Class.GetHandle (typeof (T)), traits));
+		}
+		
+		public static new RevMobButtonAppearance GetAppearance<T> (UITraitCollection traits, params Type [] containers) where T: RevMobButton{
+			return new RevMobButtonAppearance (UIAppearance.GetAppearance (Class.GetHandle (typeof (T)), containers));
+		}
+		
+		
 	} /* class RevMobButton */
 }

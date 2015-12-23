@@ -1,28 +1,29 @@
-﻿namespace RevMob.iOS
+public enum RevMobButtonStatus
 {
-	public enum RevMobButtonStatus {
-		RevMobButtonStatusUndefined = -1,
-		RevMobButtonStatusNew = 0,
-		RevMobButtonStatusLoading,
-		RevMobButtonStatusLoaded,
-		RevMobButtonStatusLoadError
-	}
+	Undefined = -1,
+	New = 0,
+	Loading,
+	Loaded,
+	LoadError
+}
 
-	public enum RevMobAdsTestingMode : uint {
-		RevMobAdsTestingModeOff = 0,
-		RevMobAdsTestingModeWithAds,
-		RevMobAdsTestingModeWithoutAds
-	}
+public enum RevMobAdsTestingMode : uint
+{
+	Off = 0,
+	WithAds,
+	WithoutAds
+}
 
-	public enum RevMobUserGender : uint {
-		RevMobUserGenderUndefined = 0,
-		RevMobUserGenderMale,
-		RevMobUserGenderFemale
-	}
+public enum RevMobUserGender : uint
+{
+	Undefined = 0,
+	Male,
+	Female
+}
 
-	public enum RevMobParallaxMode : uint {
-		RevMobParallaxModeOff = 0,
-		RevMobParallaxModeDefault,
-		RevMobParallaxModeWithBackground
-	}
+public enum RevMobParallaxMode : uint
+{
+	Off = 0,
+	Default,
+	WithBackground
 }

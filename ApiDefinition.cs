@@ -1,293 +1,483 @@
-﻿using System;
-using ObjCRuntime;
-using Foundation;
-using UIKit;
+using System;
 using CoreGraphics;
+using Foundation;
+using ObjCRuntime;
+//using RevMobAds.iOS;
+using UIKit;
 
 namespace RevMob.iOS
 {
-	//Built for and tested with RevMob iOS SDK Version 8.1.0
 
-	[BaseType (typeof (NSObject))]
-	public interface RevMobAds {
-
-		[Availability (Deprecated = Platform.iOS_8_0)]
-		[Export ("delegate", ArgumentSemantic.UnsafeUnretained)]
-		[NullAllowed]
-		NSObject WeakDelegate { get; set; }
-
-		[Availability (Deprecated = Platform.iOS_8_0)]
-		[Wrap ("WeakDelegate")]
-		RevMobAdsDelegate Delegate { get; set; }
-
-		[Export ("connectionTimeout", ArgumentSemantic.UnsafeUnretained)]
-		nuint ConnectionTimeout { get; set; }
-
-		[Export ("testingMode", ArgumentSemantic.UnsafeUnretained)]
-		RevMobAdsTestingMode TestingMode { get; set; }
-
-		[Export ("parallaxMode", ArgumentSemantic.UnsafeUnretained)]
-		RevMobParallaxMode ParallaxMode { get; set; }
-
-		[Export ("userGender", ArgumentSemantic.UnsafeUnretained)]
-		RevMobUserGender UserGender { get; set; }
-
-		[Export ("userAgeRangeMin", ArgumentSemantic.UnsafeUnretained)]
-		nuint UserAgeRangeMin { get; set; }
-
-		[Export ("userAgeRangeMax", ArgumentSemantic.UnsafeUnretained)]
-		nuint UserAgeRangeMax { get; set; }
-
-		[Export ("userBirthday", ArgumentSemantic.Retain)]
-		NSDate UserBirthday { get; set; }
-
-		[Export ("userInterests", ArgumentSemantic.Retain)]
-		NSObject [] UserInterests { get; set; }
-
-		[Export ("userPage", ArgumentSemantic.Retain)]
-		string UserPage { get; set; }
-
-		[Export ("setUserLatitude:userLongitude:userAccuracy:")]
-		void SetUserLatitude (double userLatitude, double userLongitude, double userAccuracy);
-
-		[Static, Export ("startSessionWithAppID:")]
-		RevMobAds StartSessionWithAppID (string anAppId);
-
-		[Static, Export ("startSessionWithAppID:andDelegate:")]
-		RevMobAds StartSessionWithAppID (string anAppId, RevMobAdsDelegate adelegate);
-
-		[Static, Export ("startSessionWithAppID:withSuccessHandler:andFailHandler:")]
-		RevMobAds StartSessionWithAppID (string anAppId, Action onSessionStartedHandler, Action<NSError> onSessionNotStartedHandler);
-
-		[Static, Export ("session")]
-		RevMobAds Session ();
-
-		[Export ("printEnvironmentInformation")]
-		void PrintEnvironmentInformation ();
-
-		[Export ("showFullscreen")]
-		void ShowFullscreen ();
-
-		[Export ("showBanner")]
-		void ShowBanner ();
-
-		[Export ("hideBanner")]
-		void HideBanner ();
-
-		[Export ("showPopup")]
-		void ShowPopup ();
-
-		[Export ("openAdLinkWithDelegate:")]
-		void OpenAdLinkWithDelegate (RevMobAdsDelegate adelegate);
-
-		[Export ("fullscreen")]
-		RevMobFullscreen Fullscreen ();
-
-		[Export ("fullscreenWithPlacementId:")]
-		RevMobFullscreen FullscreenWithPlacementId (string placementId);
-
-		[Export ("bannerView")]
-		RevMobBannerView BannerView ();
-
-		[Export ("bannerViewWithPlacementId:")]
-		RevMobBannerView BannerViewWithPlacementId (string placementId);
-
-		[Export ("banner")]
-		RevMobBanner Banner ();
-
-		[Export ("bannerWithPlacementId:")]
-		RevMobBanner BannerWithPlacementId (string placementId);
-
-		[Export ("button")]
-		RevMobButton Button ();
-
-		[Export ("buttonWithPlacementId:")]
-		RevMobButton ButtonWithPlacementId (string placementId);
-
-		[Export ("buttonUnloaded")]
-		RevMobButton ButtonUnloaded ();
-
-		[Export ("buttonUnloadedWithPlacementId:")]
-		RevMobButton ButtonUnloadedWithPlacementId (string placementId);
-
-		[Export ("adLink")]
-		RevMobAdLink AdLink ();
-
-		[Export ("adLinkWithPlacementId:")]
-		RevMobAdLink AdLinkWithPlacementId (string placementId);
-
-		[Export ("popup")]
-		RevMobPopup Popup ();
-
-		[Export ("popupWithPlacementId:")]
-		RevMobPopup PopupWithPlacementId (string placementId);
-	}
-
-	[Protocol, Model]
-	[BaseType (typeof (NSObject))]
-	public interface RevMobAdsDelegate {
-
-		[Export ("revmobAdDidFailWithError:")]
-		[Abstract]
-		void RevmobAdDidFailWithError (NSError error);
-
-		[Export ("revmobSessionIsStarted")]
-		void RevmobSessionIsStarted ();
-
-		[Export ("revmobSessionNotStartedWithError:")]
-		void RevmobSessionNotStartedWithError (NSError error);
-
-		[Export ("revmobAdDidReceive")]
-		void RevmobAdDidReceive ();
-
-		[Export ("revmobAdDisplayed")]
-		void RevmobAdDisplayed ();
-
-		[Export ("revmobUserClickedInTheAd")]
-		void RevmobUserClickedInTheAd ();
-
-		[Export ("revmobUserClosedTheAd")]
-		void RevmobUserClosedTheAd ();
-
-		[Export ("installDidReceive")]
-		void InstallDidReceive ();
-
-		[Export ("installDidFail")]
-		void InstallDidFail ();
-	}
-
-	[BaseType (typeof (NSObject))]
-	public interface RevMobAdLink {
-
-		[Export ("delegate", ArgumentSemantic.UnsafeUnretained)]
-		[NullAllowed]
-		NSObject WeakDelegate { get; set; }
-
-		[Wrap ("WeakDelegate")]
-		RevMobAdsDelegate Delegate { get; set; }
-
-		[Export ("loadAd")]
-		void LoadAd ();
-
-		[Export ("loadWithSuccessHandler:andLoadFailHandler:")]
-		void LoadWithSuccessHandler (Action<RevMobAdLink> onAdLoadedHandler, Action<RevMobAdLink, NSError> onAdFailedHandler);
-
-		[Export ("openLink")]
-		void OpenLink ();
-	}
-
-	[BaseType (typeof (UIView))]
-	public interface RevMobBannerView : IUIWebViewDelegate {
-
-		[Export ("delegate", ArgumentSemantic.UnsafeUnretained)]
-		[NullAllowed]
-		NSObject WeakDelegate { get; set; }
-
-		[Wrap ("WeakDelegate")]
-		RevMobAdsDelegate Delegate { get; set; }
-
-		[Export ("loadAd")]
-		void LoadAd ();
-
-		[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:")]
-		void LoadWithSuccessHandler (Action<RevMobBannerView> onAdLoadedHandler, Action<RevMobBannerView, NSError> onAdFailedHandler, Action<RevMobBannerView> onClickHandler);
-	}
-
-	[BaseType (typeof (NSObject))]
-	public interface RevMobBanner {
-
-		[Export ("delegate", ArgumentSemantic.UnsafeUnretained)]
-		[NullAllowed]
-		NSObject WeakDelegate { get; set; }
-
-		[Wrap ("WeakDelegate")]
-		RevMobAdsDelegate Delegate { get; set; }
-
-		[Export ("frame", ArgumentSemantic.UnsafeUnretained)]
-		CGRect Frame { get; set; }
-
-		[Export ("supportedInterfaceOrientations", ArgumentSemantic.Retain)]
-		NSObject [] SupportedInterfaceOrientations { get; set; }
-
-		[Export ("loadAd")]
-		void LoadAd ();
-
-		[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:")]
-		void LoadWithSuccessHandler (Action<RevMobBanner> onAdLoadedHandler, Action<RevMobBanner, NSError> onAdFailedHandler, Action<RevMobBanner> onClickHandler);
-
-		[Export ("showAd")]
-		void ShowAd ();
-
-		[Export ("hideAd")]
-		void HideAd ();
-	}
-
-	[BaseType (typeof (UIButton))]
-	public interface RevMobButton {
-
-		[Export ("delegate", ArgumentSemantic.UnsafeUnretained)]
-		[NullAllowed]
-		NSObject WeakDelegate { get; set; }
-
-		[Wrap ("WeakDelegate")]
-		RevMobAdsDelegate Delegate { get; set; }
-
-		[Export ("status")]
-		RevMobButtonStatus Status { get; }
-
-		[Export ("loadAd")]
-		void LoadAd ();
-
-		[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:")]
-		void LoadWithSuccessHandler (Action<RevMobButton> onAdLoadedHandler, Action<RevMobButton, NSError> onAdFailedHandler, Action<RevMobButton> onClickHandler);
-	}
-
-	[BaseType (typeof (NSObject))]
-	public interface RevMobFullscreen {
-
-		[Export ("delegate", ArgumentSemantic.UnsafeUnretained)]
-		[NullAllowed]
-		NSObject WeakDelegate { get; set; }
-
-		[Wrap ("WeakDelegate")]
-		RevMobAdsDelegate Delegate { get; set; }
-
-		[Export ("supportedInterfaceOrientations", ArgumentSemantic.Retain)]
-		NSObject [] SupportedInterfaceOrientations { get; set; }
-
-		[Export ("loadAd")]
-		void LoadAd ();
-
-		[Export ("loadWithSuccessHandler:andLoadFailHandler:")]
-		void LoadWithSuccessHandler (Action<RevMobFullscreen> onAdLoadedHandler, Action<RevMobFullscreen, NSError> onAdFailedHandler);
-
-		[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:onCloseHandler:")]
-		void LoadWithSuccessHandler (Action<RevMobFullscreen> onAdLoadedHandler, Action<RevMobFullscreen, NSError> onAdFailedHandler, Action onClickHandler, Action onCloseHandler);
-
-		[Export ("showAd")]
-		void ShowAd ();
-
-		[Export ("hideAd")]
-		void HideAd ();
-	}
-
-	[BaseType (typeof (NSObject))]
-	public interface RevMobPopup : IUIAlertViewDelegate {
-
-		[Export ("delegate", ArgumentSemantic.UnsafeUnretained)]
-		[NullAllowed]
-		NSObject WeakDelegate { get; set; }
-
-		[Wrap ("WeakDelegate")]
-		RevMobAdsDelegate Delegate { get; set; }
-
-		[Export ("loadAd")]
-		void LoadAd ();
-
-		[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:")]
-		void LoadWithSuccessHandler (Action<RevMobPopup> onAdLoadedHandler, Action<RevMobPopup, NSError> onAdFailedHandler, Action<RevMobPopup> onClickHandler);
-
-		[Export ("showAd")]
-		void ShowAd ();
-	}
+// @protocol RevMobAdsDelegate <NSObject>
+[Protocol, Model]
+[BaseType (typeof(NSObject))]
+interface RevMobAdsDelegate
+{
+	// @optional -(void)revmobSessionIsStarted;
+	[Export ("revmobSessionIsStarted")]
+	void RevmobSessionIsStarted ();
+
+	// @optional -(void)revmobSessionNotStartedWithError:(NSError *)error;
+	[Export ("revmobSessionNotStartedWithError:")]
+	void RevmobSessionNotStartedWithError (NSError error);
+
+	// @optional -(void)revmobAdDidReceive;
+	[Export ("revmobAdDidReceive")]
+	void RevmobAdDidReceive ();
+
+	// @optional -(void)revmobAdDidFailWithError:(NSError *)error;
+	[Export ("revmobAdDidFailWithError:")]
+	void RevmobAdDidFailWithError (NSError error);
+
+	// @optional -(void)revmobAdDisplayed;
+	[Export ("revmobAdDisplayed")]
+	void RevmobAdDisplayed ();
+
+	// @optional -(void)revmobUserClickedInTheAd;
+	[Export ("revmobUserClickedInTheAd")]
+	void RevmobUserClickedInTheAd ();
+
+	// @optional -(void)revmobUserClosedTheAd;
+	[Export ("revmobUserClosedTheAd")]
+	void RevmobUserClosedTheAd ();
+
+	// @optional -(void)revmobVideoDidLoad;
+	[Export ("revmobVideoDidLoad")]
+	void RevmobVideoDidLoad ();
+
+	// @optional -(void)revmobVideoNotCompletelyLoaded;
+	[Export ("revmobVideoNotCompletelyLoaded")]
+	void RevmobVideoNotCompletelyLoaded ();
+
+	// @optional -(void)revmobVideoDidStart;
+	[Export ("revmobVideoDidStart")]
+	void RevmobVideoDidStart ();
+
+	// @optional -(void)revmobVideoDidFinish;
+	[Export ("revmobVideoDidFinish")]
+	void RevmobVideoDidFinish ();
+
+	// @optional -(void)revmobRewardedVideoDidLoad;
+	[Export ("revmobRewardedVideoDidLoad")]
+	void RevmobRewardedVideoDidLoad ();
+
+	// @optional -(void)revmobRewardedVideoNotCompletelyLoaded;
+	[Export ("revmobRewardedVideoNotCompletelyLoaded")]
+	void RevmobRewardedVideoNotCompletelyLoaded ();
+
+	// @optional -(void)revmobRewardedVideoDidStart;
+	[Export ("revmobRewardedVideoDidStart")]
+	void RevmobRewardedVideoDidStart ();
+
+	// @optional -(void)revmobRewardedVideoDidFinish;
+	[Export ("revmobRewardedVideoDidFinish")]
+	void RevmobRewardedVideoDidFinish ();
+
+	// @optional -(void)revmobRewardedVideoComplete;
+	[Export ("revmobRewardedVideoComplete")]
+	void RevmobRewardedVideoComplete ();
+
+	// @optional -(void)revmobRewardedPreRollDisplayed;
+	[Export ("revmobRewardedPreRollDisplayed")]
+	void RevmobRewardedPreRollDisplayed ();
+
+	// @optional -(void)installDidReceive;
+	[Export ("installDidReceive")]
+	void InstallDidReceive ();
+
+	// @optional -(void)installDidFail;
+	[Export ("installDidFail")]
+	void InstallDidFail ();
+}
+
+// typedef void (^RevMobAdLinkSuccessfullHandler)(RevMobAdLink *);
+delegate void RevMobAdLinkSuccessfullHandler (RevMobAdLink arg0);
+
+// typedef void (^RevMobAdLinkFailureHandler)(RevMobAdLink *, NSError *);
+delegate void RevMobAdLinkFailureHandler (RevMobAdLink arg0, NSError arg1);
+
+// @interface RevMobAdLink : NSObject
+[BaseType (typeof(NSObject))]
+interface RevMobAdLink
+{
+	[Wrap ("WeakDelegate")]
+	RevMobAdsDelegate Delegate { get; set; }
+
+	// @property (assign, nonatomic) id<RevMobAdsDelegate> delegate;
+	[NullAllowed, Export ("delegate", ArgumentSemantic.Assign)]
+	NSObject WeakDelegate { get; set; }
+
+	// -(void)loadAd;
+	[Export ("loadAd")]
+	void LoadAd ();
+
+	// -(void)loadWithSuccessHandler:(RevMobAdLinkSuccessfullHandler)onAdLoadedHandler andLoadFailHandler:(RevMobAdLinkFailureHandler)onAdFailedHandler;
+	[Export ("loadWithSuccessHandler:andLoadFailHandler:")]
+	void LoadWithSuccessHandler (RevMobAdLinkSuccessfullHandler onAdLoadedHandler, RevMobAdLinkFailureHandler onAdFailedHandler);
+
+	// -(void)openLink;
+	[Export ("openLink")]
+	void OpenLink ();
+}
+
+// typedef void (^RevMobBannerViewSuccessfullHandler)(RevMobBannerView *);
+delegate void RevMobBannerViewSuccessfullHandler (RevMobBannerView arg0);
+
+// typedef void (^RevMobBannerViewFailureHandler)(RevMobBannerView *, NSError *);
+delegate void RevMobBannerViewFailureHandler (RevMobBannerView arg0, NSError arg1);
+
+// typedef void (^RevMobBannerViewOnclickHandler)(RevMobBannerView *);
+delegate void RevMobBannerViewOnclickHandler (RevMobBannerView arg0);
+
+// @interface RevMobBannerView : UIView <UIWebViewDelegate>
+[BaseType (typeof(UIView))]
+interface RevMobBannerView : IUIWebViewDelegate
+{
+	[Wrap ("WeakDelegate")]
+	RevMobAdsDelegate Delegate { get; set; }
+
+	// @property (assign, nonatomic) id<RevMobAdsDelegate> delegate;
+	[NullAllowed, Export ("delegate", ArgumentSemantic.Assign)]
+	NSObject WeakDelegate { get; set; }
+
+	// -(void)loadAd;
+	[Export ("loadAd")]
+	void LoadAd ();
+
+	// -(void)loadWithSuccessHandler:(RevMobBannerViewSuccessfullHandler)onAdLoadedHandler andLoadFailHandler:(RevMobBannerViewFailureHandler)onAdFailedHandler onClickHandler:(RevMobBannerViewOnclickHandler)onClickHandler;
+	[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:")]
+	void LoadWithSuccessHandler (RevMobBannerViewSuccessfullHandler onAdLoadedHandler, RevMobBannerViewFailureHandler onAdFailedHandler, RevMobBannerViewOnclickHandler onClickHandler);
+
+	// -(void)showAd;
+	[Export ("showAd")]
+	void ShowAd ();
+
+	// -(void)showAd:(CGFloat)x y:(CGFloat)y width:(CGFloat)w height:(CGFloat)h view:(UIView *)v;
+	[Export ("showAd:y:width:height:view:")]
+	void ShowAd (nfloat x, nfloat y, nfloat w, nfloat h, UIView v);
+
+	// -(void)showAd:(CGFloat)x y:(CGFloat)y width:(CGFloat)w height:(CGFloat)h;
+	[Export ("showAd:y:width:height:")]
+	void ShowAd (nfloat x, nfloat y, nfloat w, nfloat h);
+}
+
+// typedef void (^RevMobBannerSuccessfullHandler)(RevMobBanner *);
+delegate void RevMobBannerSuccessfullHandler (RevMobBanner arg0);
+
+// typedef void (^RevMobBannerFailureHandler)(RevMobBanner *, NSError *);
+delegate void RevMobBannerFailureHandler (RevMobBanner arg0, NSError arg1);
+
+// typedef void (^RevMobBannerOnClickHandler)(RevMobBanner *);
+delegate void RevMobBannerOnClickHandler (RevMobBanner arg0);
+
+// @interface RevMobBanner : NSObject
+[BaseType (typeof(NSObject))]
+interface RevMobBanner
+{
+	[Wrap ("WeakDelegate")]
+	RevMobAdsDelegate Delegate { get; set; }
+
+	// @property (assign, nonatomic) id<RevMobAdsDelegate> delegate;
+	[NullAllowed, Export ("delegate", ArgumentSemantic.Assign)]
+	NSObject WeakDelegate { get; set; }
+
+	// @property (assign, nonatomic) CGRect frame;
+	[Export ("frame", ArgumentSemantic.Assign)]
+	CGRect Frame { get; set; }
+
+	// @property (nonatomic, strong) NSArray * supportedInterfaceOrientations;
+	[Export ("supportedInterfaceOrientations", ArgumentSemantic.Strong)]
+	NSObject[] SupportedInterfaceOrientations { get; set; }
+
+	// -(void)loadAd;
+	[Export ("loadAd")]
+	void LoadAd ();
+
+	// -(void)loadWithSuccessHandler:(RevMobBannerSuccessfullHandler)onAdLoadedHandler andLoadFailHandler:(RevMobBannerFailureHandler)onAdFailedHandler onClickHandler:(RevMobBannerOnClickHandler)onClickHandler;
+	[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:")]
+	void LoadWithSuccessHandler (RevMobBannerSuccessfullHandler onAdLoadedHandler, RevMobBannerFailureHandler onAdFailedHandler, RevMobBannerOnClickHandler onClickHandler);
+
+	// -(void)showAd;
+	[Export ("showAd")]
+	void ShowAd ();
+
+	// -(void)hideAd;
+	[Export ("hideAd")]
+	void HideAd ();
+}
+
+// typedef void (^RevMobButtonSuccessfullHandler)(RevMobButton *);
+delegate void RevMobButtonSuccessfullHandler (RevMobButton arg0);
+
+// typedef void (^RevMobButtonFailureHandler)(RevMobButton *, NSError *);
+delegate void RevMobButtonFailureHandler (RevMobButton arg0, NSError arg1);
+
+// typedef void (^RevMobButtonOnclickHandler)(RevMobButton *);
+delegate void RevMobButtonOnclickHandler (RevMobButton arg0);
+
+// @interface RevMobButton : UIButton
+[BaseType (typeof(UIButton))]
+interface RevMobButton
+{
+	[Wrap ("WeakDelegate")]
+	RevMobAdsDelegate Delegate { get; set; }
+
+	// @property (assign, nonatomic) id<RevMobAdsDelegate> delegate;
+	[NullAllowed, Export ("delegate", ArgumentSemantic.Assign)]
+	NSObject WeakDelegate { get; set; }
+
+	// @property (readonly, atomic) RevMobButtonStatus status;
+	[Export ("status")]
+	RevMobButtonStatus Status { get; }
+
+	// -(void)loadAd;
+	[Export ("loadAd")]
+	void LoadAd ();
+
+	// -(void)loadWithSuccessHandler:(RevMobButtonSuccessfullHandler)onAdLoadedHandler andLoadFailHandler:(RevMobButtonFailureHandler)onAdFailedHandler onClickHandler:(RevMobButtonOnclickHandler)onClickHandler;
+	[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:")]
+	void LoadWithSuccessHandler (RevMobButtonSuccessfullHandler onAdLoadedHandler, RevMobButtonFailureHandler onAdFailedHandler, RevMobButtonOnclickHandler onClickHandler);
+}
+
+// @interface RevMobFullscreen : NSObject
+[BaseType (typeof(NSObject))]
+interface RevMobFullscreen
+{
+	[Wrap ("WeakDelegate")]
+	RevMobAdsDelegate Delegate { get; set; }
+
+	// @property (assign, nonatomic) id<RevMobAdsDelegate> delegate;
+	[NullAllowed, Export ("delegate", ArgumentSemantic.Assign)]
+	NSObject WeakDelegate { get; set; }
+
+	// @property (nonatomic, strong) NSArray * supportedInterfaceOrientations;
+	[Export ("supportedInterfaceOrientations", ArgumentSemantic.Strong)]
+	NSObject[] SupportedInterfaceOrientations { get; set; }
+
+	// -(void)loadVideo;
+	[Export ("loadVideo")]
+	void LoadVideo ();
+
+	// -(void)loadRewardedVideo;
+	[Export ("loadRewardedVideo")]
+	void LoadRewardedVideo ();
+
+	// -(void)loadAd;
+	[Export ("loadAd")]
+	void LoadAd ();
+
+	// -(void)loadWithSuccessHandler:(void (^)(RevMobFullscreen *))onAdLoadedHandler andLoadFailHandler:(void (^)(RevMobFullscreen *, NSError *))onAdFailedHandler;
+	[Export ("loadWithSuccessHandler:andLoadFailHandler:")]
+	void LoadWithSuccessHandler (Action<RevMobFullscreen> onAdLoadedHandler, Action<RevMobFullscreen, NSError> onAdFailedHandler);
+
+	// -(void)loadWithSuccessHandler:(void (^)(RevMobFullscreen *))onAdLoadedHandler andLoadFailHandler:(void (^)(RevMobFullscreen *, NSError *))onAdFailedHandler onClickHandler:(void (^)())onClickHandler onCloseHandler:(void (^)())onCloseHandler;
+	[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:onCloseHandler:")]
+	void LoadWithSuccessHandler (Action<RevMobFullscreen> onAdLoadedHandler, Action<RevMobFullscreen, NSError> onAdFailedHandler, Action onClickHandler, Action onCloseHandler);
+
+	// -(void)showAd;
+	[Export ("showAd")]
+	void ShowAd ();
+
+	// -(void)showVideo;
+	[Export ("showVideo")]
+	void ShowVideo ();
+
+	// -(void)showRewardedVideo;
+	[Export ("showRewardedVideo")]
+	void ShowRewardedVideo ();
+
+	// -(void)hideAd;
+	[Export ("hideAd")]
+	void HideAd ();
+}
+
+// typedef void (^RevMobPopupSuccessfullHandler)(RevMobPopup *);
+delegate void RevMobPopupSuccessfullHandler (RevMobPopup arg0);
+
+// typedef void (^RevMobPopupFailureHandler)(RevMobPopup *, NSError *);
+delegate void RevMobPopupFailureHandler (RevMobPopup arg0, NSError arg1);
+
+// typedef void (^RevMobPopupOnClickHandler)(RevMobPopup *);
+delegate void RevMobPopupOnClickHandler (RevMobPopup arg0);
+
+// @interface RevMobPopup : NSObject <UIAlertViewDelegate>
+[BaseType (typeof(NSObject))]
+interface RevMobPopup : IUIAlertViewDelegate
+{
+	[Wrap ("WeakDelegate")]
+	RevMobAdsDelegate Delegate { get; set; }
+
+	// @property (assign, nonatomic) id<RevMobAdsDelegate> delegate;
+	[NullAllowed, Export ("delegate", ArgumentSemantic.Assign)]
+	NSObject WeakDelegate { get; set; }
+
+	// -(void)loadAd;
+	[Export ("loadAd")]
+	void LoadAd ();
+
+	// -(void)loadWithSuccessHandler:(RevMobPopupSuccessfullHandler)onAdLoadedHandler andLoadFailHandler:(RevMobPopupFailureHandler)onAdFailedHandler onClickHandler:(RevMobPopupOnClickHandler)onClickHandler;
+	[Export ("loadWithSuccessHandler:andLoadFailHandler:onClickHandler:")]
+	void LoadWithSuccessHandler (RevMobPopupSuccessfullHandler onAdLoadedHandler, RevMobPopupFailureHandler onAdFailedHandler, RevMobPopupOnClickHandler onClickHandler);
+
+	// -(void)showAd;
+	[Export ("showAd")]
+	void ShowAd ();
+}
+
+// @interface RevMobAds : NSObject
+[BaseType (typeof(NSObject))]
+interface RevMobAds
+{
+	[Wrap ("WeakDelegate")]
+	RevMobAdsDelegate Delegate { get; set; }
+
+	// @property (assign, nonatomic) id<RevMobAdsDelegate> delegate __attribute__((deprecated("")));
+	[NullAllowed, Export ("delegate", ArgumentSemantic.Assign)]
+	NSObject WeakDelegate { get; set; }
+
+	// @property (assign, nonatomic) NSUInteger connectionTimeout;
+	[Export ("connectionTimeout")]
+	nuint ConnectionTimeout { get; set; }
+
+	// @property (assign, nonatomic) RevMobAdsTestingMode testingMode;
+	[Export ("testingMode", ArgumentSemantic.Assign)]
+	RevMobAdsTestingMode TestingMode { get; set; }
+
+	// @property (assign, nonatomic) RevMobParallaxMode parallaxMode;
+	[Export ("parallaxMode", ArgumentSemantic.Assign)]
+	RevMobParallaxMode ParallaxMode { get; set; }
+
+	// @property (assign, nonatomic) RevMobUserGender userGender;
+	[Export ("userGender", ArgumentSemantic.Assign)]
+	RevMobUserGender UserGender { get; set; }
+
+	// @property (assign, nonatomic) NSUInteger userAgeRangeMin;
+	[Export ("userAgeRangeMin")]
+	nuint UserAgeRangeMin { get; set; }
+
+	// @property (assign, nonatomic) NSUInteger userAgeRangeMax;
+	[Export ("userAgeRangeMax")]
+	nuint UserAgeRangeMax { get; set; }
+
+	// @property (nonatomic, strong) NSDate * userBirthday;
+	[Export ("userBirthday", ArgumentSemantic.Strong)]
+	NSDate UserBirthday { get; set; }
+
+	// @property (nonatomic, strong) NSArray * userInterests;
+	[Export ("userInterests", ArgumentSemantic.Strong)]
+	NSString[] UserInterests { get; set; }
+
+	// @property (nonatomic, strong) NSString * userPage;
+	[Export ("userPage", ArgumentSemantic.Strong)]
+	string UserPage { get; set; }
+
+	// +(RevMobAds *)startSessionWithAppID:(NSString *)anAppId;
+	[Static]
+	[Export ("startSessionWithAppID:")]
+	RevMobAds StartSessionWithAppID (string anAppId);
+
+	// +(RevMobAds *)startSessionWithAppID:(NSString *)anAppId andDelegate:(id<RevMobAdsDelegate>)adelegate;
+	[Static]
+	[Export ("startSessionWithAppID:andDelegate:")]
+	RevMobAds StartSessionWithAppID (string anAppId, RevMobAdsDelegate adelegate);
+
+	// +(RevMobAds *)startSessionWithAppID:(NSString *)anAppId withSuccessHandler:(void (^)())onSessionStartedHandler andFailHandler:(void (^)(NSError *))onSessionNotStartedHandler;
+	[Static]
+	[Export ("startSessionWithAppID:withSuccessHandler:andFailHandler:")]
+	RevMobAds StartSessionWithAppID (string anAppId, Action onSessionStartedHandler, Action<NSError> onSessionNotStartedHandler);
+
+	// +(RevMobAds *)startSessionWithAppID:(NSString *)anAppId withSuccessHandler:(void (^)())onSessionStartedHandler andFailHandler:(void (^)(NSError *))onSessionNotStartedHandler url:(NSString *)serverUrl key:(int)sessionKey;
+	[Static]
+	[Export ("startSessionWithAppID:withSuccessHandler:andFailHandler:url:key:")]
+	RevMobAds StartSessionWithAppID (string anAppId, Action onSessionStartedHandler, Action<NSError> onSessionNotStartedHandler, string serverUrl, int sessionKey);
+
+	// +(RevMobAds *)session;
+	[Static]
+	[Export ("session")]
+	RevMobAds Session { get; }
+
+	// -(void)printEnvironmentInformation;
+	[Export ("printEnvironmentInformation")]
+	void PrintEnvironmentInformation ();
+
+	// -(void)showFullscreen;
+	[Export ("showFullscreen")]
+	void ShowFullscreen ();
+
+	// -(void)showBanner;
+	[Export ("showBanner")]
+	void ShowBanner ();
+
+	// -(void)hideBanner;
+	[Export ("hideBanner")]
+	void HideBanner ();
+
+	// -(void)showPopup;
+	[Export ("showPopup")]
+	void ShowPopup ();
+
+	// -(void)openAdLinkWithDelegate:(id<RevMobAdsDelegate>)adelegate;
+	[Export ("openAdLinkWithDelegate:")]
+	void OpenAdLinkWithDelegate (RevMobAdsDelegate adelegate);
+
+	// -(RevMobFullscreen *)fullscreen;
+	[Export ("fullscreen")]
+	RevMobFullscreen Fullscreen { get; }
+
+	// -(RevMobFullscreen *)fullscreenWithPlacementId:(NSString *)placementId;
+	[Export ("fullscreenWithPlacementId:")]
+	RevMobFullscreen FullscreenWithPlacementId (string placementId);
+
+	// -(RevMobBannerView *)bannerView;
+	[Export ("bannerView")]
+	RevMobBannerView BannerView { get; }
+
+	// -(RevMobBannerView *)bannerViewWithPlacementId:(NSString *)placementId;
+	[Export ("bannerViewWithPlacementId:")]
+	RevMobBannerView BannerViewWithPlacementId (string placementId);
+
+	// -(RevMobBanner *)banner;
+	[Export ("banner")]
+	RevMobBanner Banner { get; }
+
+	// -(RevMobBanner *)bannerWithPlacementId:(NSString *)placementId;
+	[Export ("bannerWithPlacementId:")]
+	RevMobBanner BannerWithPlacementId (string placementId);
+
+	// -(RevMobButton *)button;
+	[Export ("button")]
+	RevMobButton Button { get; }
+
+	// -(RevMobButton *)buttonWithPlacementId:(NSString *)placementId;
+	[Export ("buttonWithPlacementId:")]
+	RevMobButton ButtonWithPlacementId (string placementId);
+
+	// -(RevMobButton *)buttonUnloaded;
+	[Export ("buttonUnloaded")]
+	RevMobButton ButtonUnloaded { get; }
+
+	// -(RevMobButton *)buttonUnloadedWithPlacementId:(NSString *)placementId;
+	[Export ("buttonUnloadedWithPlacementId:")]
+	RevMobButton ButtonUnloadedWithPlacementId (string placementId);
+
+	// -(RevMobAdLink *)adLink;
+	[Export ("adLink")]
+	RevMobAdLink AdLink { get; }
+
+	// -(RevMobAdLink *)adLinkWithPlacementId:(NSString *)placementId;
+	[Export ("adLinkWithPlacementId:")]
+	RevMobAdLink AdLinkWithPlacementId (string placementId);
+
+	// -(RevMobPopup *)popup;
+	[Export ("popup")]
+	RevMobPopup Popup { get; }
+
+	// -(void)openLink;
+	[Export ("openLink")]
+	void OpenLink ();
+
+	// -(RevMobPopup *)popupWithPlacementId:(NSString *)placementId;
+	[Export ("popupWithPlacementId:")]
+	RevMobPopup PopupWithPlacementId (string placementId);
+}
 }

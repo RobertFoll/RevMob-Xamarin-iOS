@@ -14,7 +14,9 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using UIKit;
 using GLKit;
+using Metal;
 using MapKit;
+using ModelIO;
 using Security;
 using SceneKit;
 using CoreVideo;
@@ -26,27 +28,41 @@ using ObjCRuntime;
 using AddressBook;
 using CoreGraphics;
 using CoreLocation;
-using NewsstandKit;
 using AVFoundation;
+using NewsstandKit;
 using CoreAnimation;
 using CoreFoundation;
 
 namespace RevMob.iOS {
 	[Protocol (Name = "RevMobAdsDelegate", WrapperType = typeof (RevMobAdsDelegateWrapper))]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobSessionIsStarted", Selector = "revmobSessionIsStarted")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobSessionNotStartedWithError", Selector = "revmobSessionNotStartedWithError:", ParameterType = new Type [] { typeof (NSError) }, ParameterByRef = new bool [] { false })]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobAdDidReceive", Selector = "revmobAdDidReceive")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobAdDidFailWithError", Selector = "revmobAdDidFailWithError:", ParameterType = new Type [] { typeof (NSError) }, ParameterByRef = new bool [] { false })]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobAdDisplayed", Selector = "revmobAdDisplayed")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobUserClickedInTheAd", Selector = "revmobUserClickedInTheAd")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobUserClosedTheAd", Selector = "revmobUserClosedTheAd")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobVideoDidLoad", Selector = "revmobVideoDidLoad")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobVideoNotCompletelyLoaded", Selector = "revmobVideoNotCompletelyLoaded")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobVideoDidStart", Selector = "revmobVideoDidStart")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobVideoDidFinish", Selector = "revmobVideoDidFinish")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobRewardedVideoDidLoad", Selector = "revmobRewardedVideoDidLoad")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobRewardedVideoNotCompletelyLoaded", Selector = "revmobRewardedVideoNotCompletelyLoaded")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobRewardedVideoDidStart", Selector = "revmobRewardedVideoDidStart")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobRewardedVideoDidFinish", Selector = "revmobRewardedVideoDidFinish")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobRewardedVideoComplete", Selector = "revmobRewardedVideoComplete")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "RevmobRewardedPreRollDisplayed", Selector = "revmobRewardedPreRollDisplayed")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "InstallDidReceive", Selector = "installDidReceive")]
+	[ProtocolMember (IsRequired = false, IsProperty = false, IsStatic = false, Name = "InstallDidFail", Selector = "installDidFail")]
 	public interface IRevMobAdsDelegate : INativeObject, IDisposable
 	{
-		[CompilerGenerated]
-		[Export ("revmobAdDidFailWithError:")]
-		[Preserve (Conditional = true)]
-		void RevmobAdDidFailWithError (NSError error);
-		
 	}
 	
 	public static partial class RevMobAdsDelegate_Extensions {
 		[CompilerGenerated]
 		public static void RevmobSessionIsStarted (this IRevMobAdsDelegate This)
 		{
-			ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobSessionIsStarted"));
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobSessionIsStarted"));
 		}
 		
 		[CompilerGenerated]
@@ -54,43 +70,111 @@ namespace RevMob.iOS {
 		{
 			if (error == null)
 				throw new ArgumentNullException ("error");
-			ApiDefinition.Messaging.void_objc_msgSend_IntPtr (This.Handle, Selector.GetHandle ("revmobSessionNotStartedWithError:"), error.Handle);
+			global::ApiDefinition.Messaging.void_objc_msgSend_IntPtr (This.Handle, Selector.GetHandle ("revmobSessionNotStartedWithError:"), error.Handle);
 		}
 		
 		[CompilerGenerated]
 		public static void RevmobAdDidReceive (this IRevMobAdsDelegate This)
 		{
-			ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobAdDidReceive"));
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobAdDidReceive"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobAdDidFailWithError (this IRevMobAdsDelegate This, NSError error)
+		{
+			if (error == null)
+				throw new ArgumentNullException ("error");
+			global::ApiDefinition.Messaging.void_objc_msgSend_IntPtr (This.Handle, Selector.GetHandle ("revmobAdDidFailWithError:"), error.Handle);
 		}
 		
 		[CompilerGenerated]
 		public static void RevmobAdDisplayed (this IRevMobAdsDelegate This)
 		{
-			ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobAdDisplayed"));
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobAdDisplayed"));
 		}
 		
 		[CompilerGenerated]
 		public static void RevmobUserClickedInTheAd (this IRevMobAdsDelegate This)
 		{
-			ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobUserClickedInTheAd"));
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobUserClickedInTheAd"));
 		}
 		
 		[CompilerGenerated]
 		public static void RevmobUserClosedTheAd (this IRevMobAdsDelegate This)
 		{
-			ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobUserClosedTheAd"));
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobUserClosedTheAd"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobVideoDidLoad (this IRevMobAdsDelegate This)
+		{
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobVideoDidLoad"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobVideoNotCompletelyLoaded (this IRevMobAdsDelegate This)
+		{
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobVideoNotCompletelyLoaded"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobVideoDidStart (this IRevMobAdsDelegate This)
+		{
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobVideoDidStart"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobVideoDidFinish (this IRevMobAdsDelegate This)
+		{
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobVideoDidFinish"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobRewardedVideoDidLoad (this IRevMobAdsDelegate This)
+		{
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobRewardedVideoDidLoad"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobRewardedVideoNotCompletelyLoaded (this IRevMobAdsDelegate This)
+		{
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobRewardedVideoNotCompletelyLoaded"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobRewardedVideoDidStart (this IRevMobAdsDelegate This)
+		{
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobRewardedVideoDidStart"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobRewardedVideoDidFinish (this IRevMobAdsDelegate This)
+		{
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobRewardedVideoDidFinish"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobRewardedVideoComplete (this IRevMobAdsDelegate This)
+		{
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobRewardedVideoComplete"));
+		}
+		
+		[CompilerGenerated]
+		public static void RevmobRewardedPreRollDisplayed (this IRevMobAdsDelegate This)
+		{
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("revmobRewardedPreRollDisplayed"));
 		}
 		
 		[CompilerGenerated]
 		public static void InstallDidReceive (this IRevMobAdsDelegate This)
 		{
-			ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("installDidReceive"));
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("installDidReceive"));
 		}
 		
 		[CompilerGenerated]
 		public static void InstallDidFail (this IRevMobAdsDelegate This)
 		{
-			ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("installDidFail"));
+			global::ApiDefinition.Messaging.void_objc_msgSend (This.Handle, Selector.GetHandle ("installDidFail"));
 		}
 		
 	}
@@ -107,27 +191,18 @@ namespace RevMob.iOS {
 		{
 		}
 		
-		[Export ("revmobAdDidFailWithError:")]
-		[CompilerGenerated]
-		public void RevmobAdDidFailWithError (NSError error)
-		{
-			if (error == null)
-				throw new ArgumentNullException ("error");
-			ApiDefinition.Messaging.void_objc_msgSend_IntPtr (this.Handle, Selector.GetHandle ("revmobAdDidFailWithError:"), error.Handle);
-		}
-		
 	}
 }
 namespace RevMob.iOS {
 	[Protocol]
-	[Register("RevMobAdsDelegate", true)]
+	[Register("RevMobAdsDelegate", false)]
 	[Model]
-	public unsafe abstract partial class RevMobAdsDelegate : NSObject, IRevMobAdsDelegate {
+	public unsafe partial class RevMobAdsDelegate : NSObject, IRevMobAdsDelegate {
 		
 		[CompilerGenerated]
 		[EditorBrowsable (EditorBrowsableState.Advanced)]
 		[Export ("init")]
-		protected RevMobAdsDelegate () : base (NSObjectFlag.Empty)
+		public RevMobAdsDelegate () : base (NSObjectFlag.Empty)
 		{
 			IsDirectBinding = GetType ().Assembly == global::ApiDefinition.Messaging.this_assembly;
 			if (IsDirectBinding) {
@@ -167,7 +242,11 @@ namespace RevMob.iOS {
 		
 		[Export ("revmobAdDidFailWithError:")]
 		[CompilerGenerated]
-		public abstract void RevmobAdDidFailWithError (NSError error);
+		public virtual void RevmobAdDidFailWithError (NSError error)
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
 		[Export ("revmobAdDidReceive")]
 		[CompilerGenerated]
 		public virtual void RevmobAdDidReceive ()
@@ -178,6 +257,48 @@ namespace RevMob.iOS {
 		[Export ("revmobAdDisplayed")]
 		[CompilerGenerated]
 		public virtual void RevmobAdDisplayed ()
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
+		[Export ("revmobRewardedPreRollDisplayed")]
+		[CompilerGenerated]
+		public virtual void RevmobRewardedPreRollDisplayed ()
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
+		[Export ("revmobRewardedVideoComplete")]
+		[CompilerGenerated]
+		public virtual void RevmobRewardedVideoComplete ()
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
+		[Export ("revmobRewardedVideoDidFinish")]
+		[CompilerGenerated]
+		public virtual void RevmobRewardedVideoDidFinish ()
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
+		[Export ("revmobRewardedVideoDidLoad")]
+		[CompilerGenerated]
+		public virtual void RevmobRewardedVideoDidLoad ()
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
+		[Export ("revmobRewardedVideoDidStart")]
+		[CompilerGenerated]
+		public virtual void RevmobRewardedVideoDidStart ()
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
+		[Export ("revmobRewardedVideoNotCompletelyLoaded")]
+		[CompilerGenerated]
+		public virtual void RevmobRewardedVideoNotCompletelyLoaded ()
 		{
 			throw new You_Should_Not_Call_base_In_This_Method ();
 		}
@@ -206,6 +327,34 @@ namespace RevMob.iOS {
 		[Export ("revmobUserClosedTheAd")]
 		[CompilerGenerated]
 		public virtual void RevmobUserClosedTheAd ()
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
+		[Export ("revmobVideoDidFinish")]
+		[CompilerGenerated]
+		public virtual void RevmobVideoDidFinish ()
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
+		[Export ("revmobVideoDidLoad")]
+		[CompilerGenerated]
+		public virtual void RevmobVideoDidLoad ()
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
+		[Export ("revmobVideoDidStart")]
+		[CompilerGenerated]
+		public virtual void RevmobVideoDidStart ()
+		{
+			throw new You_Should_Not_Call_base_In_This_Method ();
+		}
+		
+		[Export ("revmobVideoNotCompletelyLoaded")]
+		[CompilerGenerated]
+		public virtual void RevmobVideoNotCompletelyLoaded ()
 		{
 			throw new You_Should_Not_Call_base_In_This_Method ();
 		}

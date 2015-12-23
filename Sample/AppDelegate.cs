@@ -27,7 +27,7 @@ namespace Sample
 
 			// Start the session
 			Ads = RevMobAds.StartSessionWithAppID (MediaID,success,fail);
-			Ads.TestingMode = RevMobAdsTestingMode.RevMobAdsTestingModeWithAds;
+			Ads.TestingMode = RevMobAdsTestingMode.WithAds;
 
 			// Show the Ads
 			ShowBannerAd ();
@@ -43,7 +43,7 @@ namespace Sample
 				var fail = new  Action<RevMobFullscreen, NSError> ((r, e) => Console.WriteLine(e));
 				var onclick = new Action (() => Console.WriteLine ("clicked"));
 				var onclose = new Action(() => Console.WriteLine ("closed"));
-				var fullScreenAd = Ads.Fullscreen ();
+				var fullScreenAd = Ads.Fullscreen;
 				fullScreenAd.LoadWithSuccessHandler (success, fail, onclick, onclose);
 			}
 			catch (Exception ex) {
@@ -54,10 +54,10 @@ namespace Sample
 		public void ShowBannerAd()
 		{
 			try{
-				var success = new  Action<RevMobBanner> (e => Ads.ShowBanner ());
-				var fail = new  Action<RevMobBanner, NSError> ((r, e) => Console.WriteLine(e));
-				var onclick = new Action<RevMobBanner> ( e => Console.WriteLine ("clicked"));
-				var bannerAd = Ads.Banner ();
+				var success = new  RevMobBannerSuccessfullHandler (e => Ads.ShowBanner ());
+				var fail = new  RevMobBannerFailureHandler ((r, e) => Console.WriteLine(e));
+				var onclick = new RevMobBannerOnClickHandler ( e => Console.WriteLine ("clicked"));
+				var bannerAd = Ads.Banner;
 				bannerAd.LoadWithSuccessHandler (success, fail, onclick);
 			}
 			catch (Exception ex) {
