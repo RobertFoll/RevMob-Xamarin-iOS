@@ -1,0 +1,10 @@
+obj/Debug/ios/ObjCRuntime/Messaging.g.cs
+obj/Debug/ios/RevMobiOS/RevMobAds.g.cs
+obj/Debug/ios/RevMobiOS/RevMobAdsDelegate.g.cs
+obj/Debug/ios/RevMobiOS/RevMobAdLink.g.cs
+obj/Debug/ios/RevMobiOS/RevMobBannerView.g.cs
+obj/Debug/ios/RevMobiOS/RevMobBanner.g.cs
+obj/Debug/ios/RevMobiOS/RevMobButton.g.cs
+obj/Debug/ios/RevMobiOS/RevMobFullscreen.g.cs
+obj/Debug/ios/RevMobiOS/RevMobPopup.g.cs
+obj/Debug/ios/ObjCRuntime/Trampolines.g.cs
